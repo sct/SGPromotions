@@ -53,7 +53,7 @@ public class PromotionCommands implements CommandExecutor {
         		SGPromotions.permission.playerAddGroup(target, SGPromotions.config.getString("config.trial-group-name"));
         		// Create file for player here
         		
-        		File playerDataFile = new File(plugin.playerDirectory, target.getName() + ".yml");
+        		File playerDataFile = new File(plugin.playerDirectory, target.getName() + ".txt");
         		
         		if (!playerDataFile.exists()) {
         			try {

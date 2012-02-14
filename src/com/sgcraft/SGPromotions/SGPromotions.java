@@ -29,16 +29,18 @@ public class SGPromotions extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		PluginDescriptionFile pdf = this.getDescription();
-		playerDirectory = new File(getDataFolder(), "players");
-		// Create player data folder if it does not already exist
-		if (!playerDirectory.exists()) {
-			playerDirectory.mkdir();
-		}
+		
 		
 		// Load config / Create default config
 		config = getConfig();
         config.options().copyDefaults(true);
 		saveConfig();
+		
+		playerDirectory = new File(getDataFolder(), "players");
+		// Create player data folder if it does not already exist
+		if (!playerDirectory.exists()) {
+			playerDirectory.mkdir();
+		}
 		
 		setupPermissions();
 		startListeners();

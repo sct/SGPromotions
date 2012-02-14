@@ -1,6 +1,13 @@
 package com.sgraft.SGPromotions.commands;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,10 +29,6 @@ public class PromotionCommands implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if ((sender instanceof Player)) {
-            Player player = (Player) sender;
-        }
 		
 		if (!(sender instanceof ColouredConsoleSender))
         {
@@ -56,7 +59,32 @@ public class PromotionCommands implements CommandExecutor {
         		// Create file for player here
         		
         		File playerDataFile = new File(plugin.playerDirectory, target.getName() + ".yml");
+        		
+        		if (!playerDataFile.exists()) {
+        			try {
+        				playerDataFile.createNewFile();
+        			} catch (IOException e) {
+        				e.printStackTrace();
+        			}
+        		}
+        		
+        		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m");
+        		Date date = new Date();
+        		String data = dateFormat.format(date);
+        		
+        		try {
+        			FileWriter fw = new FileWriter(playerDataFile);
+        			BufferedWriter out = new BufferedWriter(fw);
+        			out.write(data);
+        			out.close();
+        		} catch (FileNotFoundException e) {
+        			e.printStackTrace();
+        		} catch (IOException e) {
+        			e.printStackTrace();
+        		}
         	}
+        	sender.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.BLUE + 
+        						target.getName() + ChatColor.WHITE + " has been promoted to Trial status!");
         	return true;
         }
 		

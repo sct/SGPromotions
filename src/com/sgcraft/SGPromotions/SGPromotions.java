@@ -18,7 +18,7 @@ public class SGPromotions extends JavaPlugin {
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static FileConfiguration config;
 	public static Permission permission = null;
-	public File playerDirectory = new File(getDataFolder(), "players");
+	public File playerDirectory;
 	
 	@Override
 	public void onDisable() {
@@ -29,7 +29,8 @@ public class SGPromotions extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		PluginDescriptionFile pdf = this.getDescription();
-		// Creste player data folder if it does not already exist
+		playerDirectory = new File(getDataFolder(), "players");
+		// Create player data folder if it does not already exist
 		if (!playerDirectory.exists()) {
 			playerDirectory.mkdir();
 		}

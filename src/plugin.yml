@@ -1,0 +1,8 @@
+name: SGPromotions
+main: com.sgcraft.SGPromotions.SGPromotions
+version: 0.1
+author: SGCraft
+commands:
+    sgp:
+        description: Manage greylist
+        usage: /sgp <promote/vouch/demote>

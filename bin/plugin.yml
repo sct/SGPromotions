@@ -1,8 +1,21 @@
 name: SGPromotions
 main: com.sgcraft.SGPromotions.SGPromotions
-version: 0.1
+version: 0.2
 author: SGCraft
 commands:
-    sgp:
-        description: Manage greylist
-        usage: /sgp <promote/vouch/demote>
+  sgp:
+    description: Manage trial members
+    usage: /sgp <status/promote/vouch/demote> [user]
+permissions:
+  sgpromotions.promote:
+    default: op
+    description: Allows a user to promote another to the trial rank
+  sgpromotions.demote:
+    default: op
+    description: Allows a user to demote another to guest rank
+  sgpromotions.vouch:
+    default: op
+    description: Allows a user to vouch for another moving them to member rank
+  sgpromotions.status:
+    default: op
+    description: Allows a user to check their promotion status

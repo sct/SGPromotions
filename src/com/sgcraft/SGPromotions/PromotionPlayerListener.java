@@ -1,13 +1,6 @@
 package com.sgcraft.SGPromotions;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.bukkit.ChatColor;
@@ -34,37 +27,20 @@ public class PromotionPlayerListener implements Listener {
 			// Let's load the players promotion date and get that saved
 			File playerDataFile = new File(plugin.playerDirectory, player.getName() + ".txt");
 			if (playerDataFile.exists()) {
-				try {
-					FileInputStream fis = new FileInputStream(playerDataFile);
-					BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-					
-					String dateFromFile = br.readLine();
-					Date playerDate = new SimpleDateFormat("yyyy-MM-dd H:m").parse(dateFromFile);
-					Date currentDate = new Date();
-					
-					Date promotionDate = new Date(playerDate.getTime() + (1000 * 60 * 60 * 24 * 14));
-					
-					String promoDate = new SimpleDateFormat("yyyy-MM-dd H:m").format(promotionDate);
-					
-					if (currentDate.getTime() >= promotionDate.getTime()) {
-						SGPromotions.permission.playerAddGroup(player, SGPromotions.config.getString("config.member-group-name"));
-		        		SGPromotions.permission.playerRemoveGroup(player, SGPromotions.config.getString("config.trial-group-name"));
-						player.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You have been promoted! You are now a full Member!");
-						playerDataFile.delete();
-						plugin.logger.info("[SGPromotions] " + player.getName() + " has been automatically promoted to a Member.");
-					} else {
-						player.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You are currently still a " + ChatColor.RED + "Trial"
-								+ ChatColor.WHITE + " Member");
-						player.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You will be promoted to a full member on "
-								+ ChatColor.BLUE + promoDate);
-					}
-					
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
+				
+				Date playerDate = plugin.getPlayerDate(player);
+				
+				if (plugin.checkPromotion(playerDate)) {
+					SGPromotions.permission.playerAddGroup(player, SGPromotions.config.getString("config.member-group-name"));
+	        		SGPromotions.permission.playerRemoveGroup(player, SGPromotions.config.getString("config.trial-group-name"));
+					player.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You have been promoted! You are now a full Member!");
+					playerDataFile.delete();
+					plugin.logger.info("[SGPromotions] " + player.getName() + " has been automatically promoted to a Member.");
+				} else {
+					player.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You are currently still a " + ChatColor.RED + "Trial"
+							+ ChatColor.WHITE + " Member");
+					player.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You will be promoted to a full member on "
+							+ ChatColor.BLUE + plugin.formatPromotion(playerDate));
 				}
 			}
 		}

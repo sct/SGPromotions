@@ -1,4 +1,4 @@
-package com.sgraft.SGPromotions.commands;
+package com.sgcraft.SGPromotions.commands;
 
 import java.io.BufferedWriter;
 import java.io.File;

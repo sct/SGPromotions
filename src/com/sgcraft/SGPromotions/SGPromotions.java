@@ -10,7 +10,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sgraft.SGPromotions.commands.PromotionCommands;
+import com.sgcraft.SGPromotions.commands.PromotionCommands;
 
 public class SGPromotions extends JavaPlugin {
 	

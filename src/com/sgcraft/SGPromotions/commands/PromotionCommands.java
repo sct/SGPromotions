@@ -51,6 +51,7 @@ public class PromotionCommands implements CommandExecutor {
         		return true;
         	} else {
         		SGPromotions.permission.playerAddGroup(target, SGPromotions.config.getString("config.trial-group-name"));
+        		SGPromotions.permission.playerRemoveGroup(target, SGPromotions.config.getString("config.guest-group-name"));
         		// Create file for player here
         		
         		File playerDataFile = new File(plugin.playerDirectory, target.getName() + ".txt");
@@ -78,6 +79,8 @@ public class PromotionCommands implements CommandExecutor {
         			e.printStackTrace();
         		}
         	}
+        	target.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.WHITE + "You have been promoted to Trial status by " +
+        						ChatColor.BLUE + sender.getName() + ChatColor.WHITE + "!");
         	sender.sendMessage(ChatColor.RED + "[SGPromotions] " + ChatColor.BLUE + 
         						target.getName() + ChatColor.WHITE + " has been promoted to Trial status!");
         	return true;

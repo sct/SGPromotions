@@ -105,7 +105,7 @@ public class SGPromotions extends JavaPlugin {
 	}
 	
 	public Date getPromotionDate(Date playerDate) {
-		Date promotionDate = new Date(playerDate.getTime() + (1000 * 60 * 60 * 24 * 14));
+		Date promotionDate = new Date(playerDate.getTime() + (1000 * 60 * 60 * 24 * config.getInt("config.delay-promote")));
 		return promotionDate;
 	}
 	

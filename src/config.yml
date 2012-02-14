@@ -2,3 +2,4 @@ config:
     guest-group-name: "Guest"
     trial-group-name: "Member"
     member-group-name: "Stone"
+    delay-promote: 14
